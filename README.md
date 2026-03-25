@@ -53,7 +53,11 @@ Al cargar la app, `GET /api/data` ejecuta `ensureSeeded()` y precarga automatica
 Tambien podes usar CLI:
 
 ```bash
-vercel
+npx vercel login
+npx vercel env add NEXT_PUBLIC_SUPABASE_URL
+npx vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
+npx vercel env add SUPABASE_SERVICE_ROLE_KEY
+npm run vercel:deploy
 ```
 
 ## 4) Crear repo y push (si todavia no existe)
