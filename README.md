@@ -30,8 +30,8 @@ cp .env.example .env.local
 Variables requeridas:
 
 - `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY` (recomendado para seed server-side)
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_SECRET_KEY` (recomendado para seed server-side)
 
 ## 2) Ejecutar local
 
@@ -55,8 +55,8 @@ Tambien podes usar CLI:
 ```bash
 npx vercel login
 npx vercel env add NEXT_PUBLIC_SUPABASE_URL
-npx vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
-npx vercel env add SUPABASE_SERVICE_ROLE_KEY
+npx vercel env add NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+npx vercel env add SUPABASE_SECRET_KEY
 npm run vercel:deploy
 ```
 
