@@ -1,0 +1,165 @@
+Quiero que actúes como un senior full-stack engineer, software architect, product designer y DevOps generalist. Necesito que construyas DESDE CERO una aplicación web responsive, mobile-friendly, deployable y funcional end-to-end, para planificación, seguimiento, reflexión, evaluación y analítica de progreso de lectura de libros.
+
+IMPORTANTE:
+- No existe repositorio todavía.
+- GitHub CLI (`gh`) ya está instalado y autenticado.
+- Debes crear repo, hacer push y dejar todo listo.
+- Debes preparar deploy en Vercel.
+- Debes integrar Supabase.
+- Debes precargar el plan anual corregido desde 26/03/2026.
+
+==================================================
+PLAN DE LECTURA PRECARGADO (CORREGIDO)
+==================================================
+
+TÍTULO:
+"Plan anual de lectura filosófica y psicológica"
+
+INICIO:
+2026-03-26
+
+FIN:
+2026-12-31
+
+==================================================
+FASE 1 — Base personal
+==================================================
+
+Objetivo: Ordenar marco interno y percepción
+
+1. Meditaciones — Marco Aurelio  
+Inicio: 2026-03-26  
+Fin: 2026-04-15  
+Estilo: fragmentaria  
+Intensidad: 2  
+Dificultad: 3  
+
+2. El mito de Sísifo — Albert Camus  
+Inicio: 2026-04-16  
+Fin: 2026-05-13  
+Estilo: reflexiva_lenta  
+Intensidad: 4  
+Dificultad: 4  
+
+3. The Elephant in the Brain — Simler & Hanson  
+Inicio: 2026-05-14  
+Fin: 2026-06-07  
+Estilo: media  
+Intensidad: 3  
+Dificultad: 3  
+
+==================================================
+FASE 2 — Trabajo y alienación
+==================================================
+
+Objetivo: Entender relación con el trabajo
+
+4. Manuscritos económico-filosóficos — Karl Marx  
+Inicio: 2026-06-08  
+Fin: 2026-07-13  
+Estilo: reflexiva_lenta  
+Intensidad: 5  
+Dificultad: 5  
+
+5. Bullshit Jobs — David Graeber  
+Inicio: 2026-07-14  
+Fin: 2026-08-02  
+Estilo: fluida  
+Intensidad: 2  
+Dificultad: 2  
+
+6. Shop Class as Soulcraft — Matthew Crawford  
+Inicio: 2026-08-03  
+Fin: 2026-08-28  
+Estilo: media  
+Intensidad: 3  
+Dificultad: 3  
+
+==================================================
+FASE 3 — Balance vital
+==================================================
+
+Objetivo: Evitar dogmatismos y equilibrar
+
+7. Carta a Meneceo — Epicuro  
+Inicio: 2026-08-29  
+Fin: 2026-08-31  
+Estilo: fragmentaria  
+
+8. Ensayos (selección) — Montaigne  
+Inicio: 2026-09-01  
+Fin: 2026-10-02  
+Estilo: reflexiva_lenta  
+
+9. El hombre en busca de sentido — Frankl  
+Inicio: 2026-10-03  
+Fin: 2026-10-24  
+
+==================================================
+FASE 4 — Integración
+==================================================
+
+Objetivo: Integrar pensamiento y vida
+
+10. Thinking, Fast and Slow — Kahneman  
+Inicio: 2026-10-25  
+Fin: 2026-12-18  
+
+11. La conquista de la felicidad — Russell  
+Inicio: 2026-12-19  
+Fin: 2027-01-10  
+
+12. El hombre mediocre — Ingenieros  
+Inicio: 2027-01-11  
+Fin: 2027-02-02  
+
+==================================================
+FASE FINAL — Buffer y cierre
+==================================================
+
+Inicio: 2026-12-19  
+Fin: 2026-12-31  
+
+Objetivo:
+- absorber desvíos
+- relecturas
+- evaluaciones finales
+
+==================================================
+REQUISITOS CLAVE
+==================================================
+
+- Este plan debe estar precargado automáticamente
+- No debe requerir input manual inicial
+- Debe poder editarse luego
+- Debe soportar CRUD completo de:
+  - programas
+  - fases
+  - libros
+  - sesiones
+  - evaluaciones
+  - reflexiones
+
+==================================================
+REPO Y DEPLOY
+==================================================
+
+Cuando el proyecto esté listo:
+
+1. git init
+2. commit inicial
+3. gh repo create reading-program-tracker --public --source=. --push
+4. preparar deploy en Vercel
+
+==================================================
+OUTPUT
+==================================================
+
+Quiero:
+- código completo
+- app funcional
+- seed con este plan
+- instrucciones claras
+- listo para ejecutar y deployar
+
+Empieza creando el proyecto y luego implementa.
