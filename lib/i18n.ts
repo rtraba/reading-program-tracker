@@ -59,6 +59,10 @@ export const labels = {
     inProgress: "En curso",
     completed: "Completado",
     refresh: "Refrescar",
+    id: "ID",
+    actions: "Acciones",
+    noData: "Sin datos",
+    actual: "Real",
   },
   en: {
     appTitle: "Reading Program Tracker",
@@ -118,6 +122,10 @@ export const labels = {
     inProgress: "In progress",
     completed: "Completed",
     refresh: "Refresh",
+    id: "ID",
+    actions: "Actions",
+    noData: "No data",
+    actual: "Actual",
   },
 } as const;
 

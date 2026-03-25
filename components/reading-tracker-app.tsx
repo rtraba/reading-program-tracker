@@ -6,6 +6,8 @@ import { buildAdjustments, buildMetrics, buildWarnings } from "@/lib/analytics";
 import { labels, resolveLocale } from "@/lib/i18n";
 import { DataBundle, Locale, TargetType } from "@/lib/types";
 
+type UiLabels = (typeof labels)[keyof typeof labels];
+
 const emptyData: DataBundle = {
   programs: [],
   phases: [],
@@ -33,12 +35,49 @@ type CrudSectionProps = {
   title: string;
   rows: Record<string, unknown>[];
   fields: string[];
+  t: UiLabels;
   onCreate: (payload: Record<string, unknown>) => Promise<void>;
   onUpdate: (id: string, payload: Record<string, unknown>) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
 };
 
-function CrudSection({ title, rows, fields, onCreate, onUpdate, onDelete }: CrudSectionProps) {
+function resolveFieldLabel(field: string, t: UiLabels) {
+  const map: Record<string, string> = {
+    title: t.title,
+    description: t.description,
+    start_date: t.startDate,
+    end_date: t.endDate,
+    objective: t.objective,
+    position: t.position,
+    author: t.author,
+    style: t.style,
+    intensity: t.intensity,
+    difficulty: t.difficulty,
+    status: t.status,
+    session_date: t.date,
+    evaluation_date: t.date,
+    reflection_date: t.date,
+    minutes: t.minutes,
+    pages: t.pages,
+    notes: t.notes,
+    content: t.content,
+    tags: t.tags,
+    target_type: t.targetType,
+    target_id: t.targetId,
+    comprehension: t.comprehension,
+    retention: t.retention,
+    application: t.application,
+    satisfaction: t.satisfaction,
+    program_id: `${t.programs} ID`,
+    phase_id: `${t.phases} ID`,
+    book_id: `${t.books} ID`,
+    name: t.title,
+  };
+
+  return map[field] ?? field;
+}
+
+function CrudSection({ title, rows, fields, t, onCreate, onUpdate, onDelete }: CrudSectionProps) {
   const [draft, setDraft] = useState<Record<string, string>>({});
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -77,6 +116,7 @@ function CrudSection({ title, rows, fields, onCreate, onUpdate, onDelete }: Crud
             value={draft[field] ?? ""}
             onChange={(event) => setDraft((prev) => ({ ...prev, [field]: event.target.value }))}
             placeholder={field}
+            aria-label={resolveFieldLabel(field, t)}
             className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
           />
         ))}
@@ -84,7 +124,7 @@ function CrudSection({ title, rows, fields, onCreate, onUpdate, onDelete }: Crud
           type="submit"
           className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white"
         >
-          {editingId ? "Update" : "Create"}
+          {editingId ? t.update : t.create}
         </button>
         {editingId && (
           <button
@@ -95,7 +135,7 @@ function CrudSection({ title, rows, fields, onCreate, onUpdate, onDelete }: Crud
             }}
             className="rounded-lg border border-slate-400 px-3 py-2 text-sm"
           >
-            Cancel
+            {t.cancel}
           </button>
         )}
       </form>
@@ -103,16 +143,23 @@ function CrudSection({ title, rows, fields, onCreate, onUpdate, onDelete }: Crud
         <table className="min-w-full text-left text-sm">
           <thead>
             <tr className="border-b border-slate-200 text-slate-600">
-              <th className="py-2 pr-4">id</th>
+              <th className="py-2 pr-4">{t.id}</th>
               {fields.map((field) => (
                 <th className="py-2 pr-4" key={field}>
-                  {field}
+                  {resolveFieldLabel(field, t)}
                 </th>
               ))}
-              <th className="py-2">actions</th>
+              <th className="py-2">{t.actions}</th>
             </tr>
           </thead>
           <tbody>
+            {rows.length === 0 && (
+              <tr>
+                <td className="py-3 text-slate-500" colSpan={fields.length + 2}>
+                  {t.noData}
+                </td>
+              </tr>
+            )}
             {rows.map((row) => (
               <tr className="border-b border-slate-100 align-top" key={String(row.id)}>
                 <td className="py-2 pr-4 text-xs text-slate-500">{String(row.id).slice(0, 8)}</td>
@@ -140,14 +187,14 @@ function CrudSection({ title, rows, fields, onCreate, onUpdate, onDelete }: Crud
                         setEditingId(String(row.id));
                       }}
                     >
-                      Edit
+                      {t.edit}
                     </button>
                     <button
                       type="button"
                       className="rounded border border-rose-500 px-2 py-1 text-xs text-rose-700"
                       onClick={() => onDelete(String(row.id))}
                     >
-                      Delete
+                      {t.remove}
                     </button>
                   </div>
                 </td>
@@ -212,8 +259,8 @@ export function ReadingTrackerApp() {
   const adjustments = useMemo(() => buildAdjustments(data), [data]);
 
   const chartData = [
-    { name: "Planned", value: metrics.weeklyMinuteGoal },
-    { name: "Actual", value: metrics.weeklyMinutesActual },
+    { name: t.planned, value: metrics.weeklyMinuteGoal },
+    { name: t.actual, value: metrics.weeklyMinutesActual },
   ];
 
   return (
@@ -328,6 +375,7 @@ export function ReadingTrackerApp() {
                 title={t.programs}
                 rows={data.programs as unknown as Record<string, unknown>[]}
                 fields={["title", "description", "start_date", "end_date"]}
+                t={t}
                 onCreate={(payload) => create("programs", payload)}
                 onUpdate={(id, payload) => update("programs", id, payload)}
                 onDelete={(id) => remove("programs", id)}
@@ -337,6 +385,7 @@ export function ReadingTrackerApp() {
                 title={t.phases}
                 rows={data.phases as unknown as Record<string, unknown>[]}
                 fields={["program_id", "position", "name", "objective", "start_date", "end_date"]}
+                t={t}
                 onCreate={(payload) => create("phases", payload)}
                 onUpdate={(id, payload) => update("phases", id, payload)}
                 onDelete={(id) => remove("phases", id)}
@@ -357,6 +406,7 @@ export function ReadingTrackerApp() {
                   "end_date",
                   "status",
                 ]}
+                t={t}
                 onCreate={(payload) => create("books", payload)}
                 onUpdate={(id, payload) => update("books", id, payload)}
                 onDelete={(id) => remove("books", id)}
@@ -366,6 +416,7 @@ export function ReadingTrackerApp() {
                 title={t.sessions}
                 rows={data.sessions as unknown as Record<string, unknown>[]}
                 fields={["book_id", "session_date", "minutes", "pages", "notes"]}
+                t={t}
                 onCreate={(payload) => create("sessions", payload)}
                 onUpdate={(id, payload) => update("sessions", id, payload)}
                 onDelete={(id) => remove("sessions", id)}
@@ -384,6 +435,7 @@ export function ReadingTrackerApp() {
                   "satisfaction",
                   "notes",
                 ]}
+                t={t}
                 onCreate={(payload) =>
                   create("evaluations", {
                     ...payload,
@@ -398,6 +450,7 @@ export function ReadingTrackerApp() {
                 title={t.reflections}
                 rows={data.reflections as unknown as Record<string, unknown>[]}
                 fields={["target_type", "target_id", "reflection_date", "content", "tags"]}
+                t={t}
                 onCreate={(payload) =>
                   create("reflections", {
                     ...payload,
